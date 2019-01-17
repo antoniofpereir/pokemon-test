@@ -1,0 +1,1 @@
+const pokemonListUrl = 'https://ironhack-pokeapi.herokuapp.com/pokemon';
