@@ -1,32 +1,41 @@
 import React from 'react';
 
-
+/* Material UI */
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+/* Components */
+import PokemonListItem from '../../components/PokemonListItem';
+
+/* Requests */
 import { getPokemonList } from '../../requests/PokemonListRequests';
 
 class PokemonList extends React.Component {
   constructor() {
     super();
     this.state = {
-      pokemonList: [],
+      pokemonListResponse: [],
     }
   }
 
   componentDidMount() {
-    getPokemonList().then(pokemonList => this.setState({ pokemonList }));
-    
+    getPokemonList().then(pokemonListResponse => console.log(pokemonListResponse) || this.setState({ pokemonListResponse }));
+  }
+
+  renderPokemonList() {
+    const { pokemonListResponse } = this.state;
+
+    return pokemonListResponse.results.map(item => <PokemonListItem key={"pkmn-" + item.name} item={item} />)
   }
 
   render() {
+    if (this.state.pokemonListResponse.length === 0) {
+      return <CircularProgress />
+    }
     return (
-      <div>
-        sadfasdf
-      </div>
+      <List>
+        {this.renderPokemonList()}
+      </List>
     );
   }
 }
