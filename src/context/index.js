@@ -6,13 +6,18 @@ import { actions } from './actions';
 
 // Contexts
 const pokemonData = {
-  pokemonList: {},
+  pokemonListResponse: {},
   selectedPokemon: {},
 };
+
+const randomStuffThatIDoNotNeedYet = {
+  notNeeded: 'indeed not needed',
+}
 
 const localStorageName = 'pokemon_context';
 
 // Generating Context Provider
 export const ContextProvider = initContext(localStorageName, actions, {
-  pokemonData
+  pokemonData,
+  randomStuffThatIDoNotNeedYet
 });

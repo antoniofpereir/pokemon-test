@@ -1,6 +1,6 @@
 import React from 'react';
 
-class PokemonItem extends React.Component {
+class PokemonData extends React.Component {
   render() {
     return (
       
@@ -8,4 +8,4 @@ class PokemonItem extends React.Component {
   }
 }
 
-export default PokemonItem;
+export default PokemonData;

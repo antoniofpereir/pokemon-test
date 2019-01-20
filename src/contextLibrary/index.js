@@ -16,13 +16,13 @@ export function initContext(localStorageName, actions, ...data) {
   return class GenericContext extends React.Component {
     constructor() {
       super();
-      const newContext = Object.assign(...data);
+      const defaultContext = Object.assign(...data);
       this.contextFromLocalStorage = this.getContextFromLocalStorage();
 
       /**
-       * Init context with newContext if contextFromLocalStorage is empty.
+       * Init context with defaultContext if contextFromLocalStorage is empty.
        */
-      this.state = this.contextFromLocalStorage || newContext;
+      this.state = this.contextFromLocalStorage || defaultContext;
 
       /**
        * Execute function decides functionalSetState based on actionType.
@@ -50,7 +50,7 @@ export function initContext(localStorageName, actions, ...data) {
     setStateAndUpdateLocalStorage = (functionalSetState, params) => {
       this.setState(
         prevState => functionalSetState(prevState, ...params),
-        this.saveContextToLocalStorage()
+        () => this.saveContextToLocalStorage()
       );
     };
 
@@ -66,7 +66,7 @@ export function initContext(localStorageName, actions, ...data) {
         return null;
       }
     };
-
+    
     saveContextToLocalStorage = () => {
       try {
         localStorage.setItem(localStorageName, JSON.stringify(this.state));

@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getPokemonData } from '../../requests/PokemonListRequests';
 
 import { capitalize } from '../../utils/capitalize';
+import LoadingPlaceholder from '../../utils/loading';
 
 const styles = {
   avatar: {
@@ -28,21 +29,10 @@ class PokemonListItem extends React.Component {
     }
   }
 
-  componentDidMount() {
-    getPokemonData(this.props.item.url).then(pokemonData => this.setState({ pokemonData }));
-    // getPokemonCharacteristic(this.props.item.id + 1).then(response => {
-    //   const pokemonCharacteristic = response.descriptions[0].description;
-    //   this.setState({ pokemonCharacteristic });
-    // })
-  }
-
-  render() {
+  renderPokemonList = () => {
     const { name } = this.props.item;
     const { pokemonData } = this.state;
 
-    if (Object.keys(this.state.pokemonData).length === 0) {
-      return <CircularProgress />
-    }
     return (
       <ListItem style={styles.listItem}>
         <ListItemAvatar>
@@ -53,6 +43,18 @@ class PokemonListItem extends React.Component {
           secondary={`#${pokemonData.id}`}
         />
       </ListItem>
+    );
+  }
+
+  componentDidMount() {
+    getPokemonData(this.props.item.url).then(pokemonData => this.setState({ pokemonData }));
+  }
+
+  render() {
+    return (
+      <LoadingPlaceholder mustHave={Object.keys(this.state.pokemonData)} placeholder={<CircularProgress />} >
+        {this.renderPokemonList}
+      </LoadingPlaceholder>
     );
   }
 }
