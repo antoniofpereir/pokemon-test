@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getPokemonData } from '../../requests/PokemonListRequests';
 
 import { capitalize } from '../../utils/capitalize';
-import LoadingPlaceholder from '../../utils/loading';
+import LoadingPlaceholder from 'loading-placeholder';
 
 const styles = {
   avatar: {

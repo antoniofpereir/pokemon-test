@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 
 /* Internal */
 import PokemonAppBar from './components/PokemonAppBar';
 import PokemonDrawer from './components/PokemonDrawer';
-import PokemonHome from './containers/PokemonHome';
-import PokemonContainer from './containers/PokemonContainer';
+
+/* Utils */
+import { renderRoutes } from './utils/routesMapping';
+
+/* Resources */
+import { routesMapping } from './resources/routes';
 
 class App extends Component {
   constructor() {
@@ -20,14 +23,11 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="App">
         <PokemonAppBar toggleDrawer={this.toggleDrawer} />
         <PokemonDrawer drawerOpen={this.state.drawerOpen} toggleDrawer={this.toggleDrawer} />
-
-        <Route path='/' exact component={PokemonHome} />
-        <Route path='/list' component={PokemonContainer} />
+        {renderRoutes(routesMapping)}
       </div>
     );
   }

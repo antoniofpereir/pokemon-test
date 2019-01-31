@@ -13,7 +13,7 @@ import { getPokemonList } from '../../requests/PokemonListRequests';
 import { AppContext } from '../../contextLibrary';
 
 /* Utils */
-import LoadingPlaceholder from '../../utils/loading';
+import LoadingPlaceholder from 'loading-placeholder';
 
 class PokemonContainer extends React.Component {
   static contextType = AppContext;
