@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 /* Material UI Core */
 import Drawer from '@material-ui/core/Drawer';
@@ -7,7 +6,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const PokemonDrawer = ({ drawerOpen, toggleDrawer, history }) => {
+import history from '../../resources/navigation/history';
+
+const PokemonDrawer = ({ drawerOpen, toggleDrawer }) => {
   return (
     <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
       <div
@@ -29,4 +30,4 @@ const PokemonDrawer = ({ drawerOpen, toggleDrawer, history }) => {
   );
 }
 
-export default withRouter(PokemonDrawer);
+export default PokemonDrawer;

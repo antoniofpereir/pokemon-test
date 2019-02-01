@@ -12,14 +12,21 @@ import { getPokemonList } from '../../requests/PokemonListRequests';
 /* Context */
 import { AppContext } from '../../contextLibrary';
 
-/* Utils */
-import LoadingPlaceholder from 'loading-placeholder';
-
 class PokemonContainer extends React.Component {
   static contextType = AppContext;
 
+  constructor() {
+    super();
+    this.state = {
+      hasData: false,
+    }
+  }
+
   componentDidMount() {
-    getPokemonList().then(pokemonListResponse => this.context.execute('setPokemonList', pokemonListResponse));
+    getPokemonList().then(pokemonListResponse => {
+      this.context.execute('SET_POKEMON_LIST', pokemonListResponse);
+      this.setState({ hasData: true });
+    });
   }
 
   renderPokemonList = () => {
@@ -28,12 +35,12 @@ class PokemonContainer extends React.Component {
   }
 
   render() {
-    return (
-      <LoadingPlaceholder mustHave={Object.keys(this.context.pokemonData.pokemonListResponse)} placeholder={<CircularProgress />} >
-        {this.renderPokemonList}
-      </LoadingPlaceholder>
-    );
-  }
+    if (this.state.hasData === false) {
+      return <CircularProgress />
+    }
+
+    return this.renderPokemonList();
+  };
 }
 
 export default PokemonContainer;

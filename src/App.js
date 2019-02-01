@@ -8,7 +8,7 @@ import PokemonDrawer from './components/PokemonDrawer';
 import { renderRoutes } from './utils/routesMapping';
 
 /* Resources */
-import { routesMapping } from './resources/routes';
+import { routesMapping } from './resources/navigation/routes';
 
 class App extends Component {
   constructor() {
