@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PokemonSprites from '../../components/PokemonSprites';
+
 /* Context */
 import { AppContext } from '../../contextLibrary';
 
@@ -18,7 +20,7 @@ class PokemonData extends React.Component {
   componentDidMount() {
     window.addEventListener('beforeunload', this.cleanup);
   }
-  
+
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.cleanup);
     this.context.execute('RESET_SELECTED_POKEMON_DATA');
@@ -27,8 +29,10 @@ class PokemonData extends React.Component {
   render() {
     return (
       <div style={style.container} >
-        <img src={this.context.pokemonData.selectedPokemon.sprites.front_default} alt="front_default"></img>
-        <img src={this.context.pokemonData.selectedPokemon.sprites.back_default} alt="back_default"></img>
+        <PokemonSprites
+          front_default={this.context.pokemonData.selectedPokemon.sprites.front_default}
+          back_default={this.context.pokemonData.selectedPokemon.sprites.back_default}
+        />
       </div>
     );
   }
