@@ -31,7 +31,7 @@ class PokemonContainer extends React.Component {
 
   renderPokemonList = () => {
     const { pokemonListResponse } = this.context.pokemonData;
-    return pokemonListResponse.results.map(item => <PokemonListItem key={"pkmn-" + item.name} item={item} />)
+    return pokemonListResponse.results.map(item => <PokemonListItem key={"pkmn-" + item.name} item={item} />);
   }
 
   render() {

@@ -8,6 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import history from '../../resources/navigation/history';
 
+import { routes } from '../../resources/navigation/routes';
+
 const PokemonDrawer = ({ drawerOpen, toggleDrawer }) => {
   return (
     <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
@@ -18,10 +20,10 @@ const PokemonDrawer = ({ drawerOpen, toggleDrawer }) => {
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          <ListItem button key="pokemon-home" onClick={() => history.push('/')} >
+          <ListItem button key="pokemon-home" onClick={() => history.push(routes.pokemonHome)} >
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem button key="pokemon-list" onClick={() => history.push('/list')} >
+          <ListItem button key="pokemon-list" onClick={() => history.push(routes.pokemonContainer)} >
             <ListItemText primary="Pokémon List" />
           </ListItem>
         </List>

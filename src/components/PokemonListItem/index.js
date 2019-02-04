@@ -8,6 +8,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import history from '../../resources/navigation/history';
 
+import { routes } from '../../resources/navigation/routes';
+
 import { getPokemonData } from '../../requests/PokemonListRequests';
 
 import { capitalize } from '../../utils/capitalize';
@@ -37,7 +39,7 @@ class PokemonListItem extends React.Component {
 
   selectPokemonItem = () => {
     this.context.execute('SET_SELECTED_POKEMON_DATA', this.state.pokemonData);
-    history.push('/pokemon');
+    history.push(routes.pokemonData);
   };
 
   renderPokemonList = () => {
