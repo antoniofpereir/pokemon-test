@@ -80,7 +80,7 @@ class PokemonAppBar extends React.Component {
 
     let iconButton = {};
 
-    if (Object.keys(this.context.pokemonData.selectedPokemon).length > 0) {
+    if (Object.keys(this.context.pokemonData.selectedPokemon).length > 0 && history.location.pathname === '/pokemon') {
       iconButton = (
         <IconButton onClick={this.goBack} className={classes.menuButton} color="inherit" aria-label="Open drawer">
           <KeyboardArrowLeft />
@@ -107,21 +107,21 @@ class PokemonAppBar extends React.Component {
             Pokémon
           </Typography>
           {
-            Object.keys(this.context.pokemonData.selectedPokemon).length === 0 ?
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+            (Object.keys(this.context.pokemonData.selectedPokemon).length > 0 && history.location.pathname === '/pokemon') ?
+              capitalize(this.context.pokemonData.selectedPokemon.name)
+              :
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
-            :
-            capitalize(this.context.pokemonData.selectedPokemon.name)
           }
         </Toolbar>
       </AppBar>

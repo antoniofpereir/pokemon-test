@@ -24,6 +24,7 @@ const styles = {
   },
   listItem: {
     alignItems: 'center',
+    width: '60%',
   }
 }
 class PokemonListItem extends React.Component {

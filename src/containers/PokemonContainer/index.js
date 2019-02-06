@@ -12,6 +12,14 @@ import { getPokemonList } from '../../requests/PokemonListRequests';
 /* Context */
 import { AppContext } from '../../contextLibrary';
 
+const style = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }
+}
+
 class PokemonContainer extends React.Component {
   static contextType = AppContext;
 
@@ -39,7 +47,11 @@ class PokemonContainer extends React.Component {
       return <CircularProgress />
     }
 
-    return this.renderPokemonList();
+    return (
+      <div style={style.container}>
+        {this.renderPokemonList()}
+      </div>
+      );
   };
 }
 
