@@ -38,11 +38,11 @@ class PokemonData extends React.Component {
   cleanup = () => this.context.execute('RESET_SELECTED_POKEMON_DATA');
 
   componentDidMount() {
-    window.addEventListener('beforeunload', this.cleanup);
+    // window.addEventListener('beforeunload', () => this.context.execute('RESET_SELECTED_POKEMON_DATA'));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.cleanup);
+    // window.removeEventListener('beforeunload', () => this.context.execute('RESET_SELECTED_POKEMON_DATA'));
     this.context.execute('RESET_SELECTED_POKEMON_DATA');
   }
 

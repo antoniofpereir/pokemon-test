@@ -100,7 +100,7 @@ class PokemonAppBar extends React.Component {
     const { classes } = this.props;
 
     return (
-      <AppBar position="static" >
+      <AppBar position="fixed" >
         <Toolbar>
           {this.renderIconButton()}
           <Typography className={classes.title} variant="h6" color="inherit" noWrap>

@@ -23,7 +23,7 @@ export function initContext(localStorageName, actions, ...data) {
        * Init context with defaultContext if contextFromLocalStorage is empty.
        */
       this.state = this.contextFromLocalStorage || defaultContext;
-
+console.log('[CONTEXT] constructor');
       /**
        * Execute function decides functionalSetState based on actionType.
        */
@@ -37,6 +37,7 @@ export function initContext(localStorageName, actions, ...data) {
      * Saves the state to localStorage after initializing for the first time.
      */
     componentDidMount() {
+      console.log('[CONTEXT] component did mount');
       if (!this.contextFromLocalStorage) {
         localStorage.setItem(localStorageName, JSON.stringify(this.state));
       }
@@ -48,6 +49,9 @@ export function initContext(localStorageName, actions, ...data) {
      * @param {*} params used in functionalSetState (optional).
      */
     setStateAndUpdateLocalStorage = (functionalSetState, params) => {
+      console.log('[CONTEXT] set state and update ls');
+      console.log(functionalSetState);
+      console.log(params);
       this.setState(
         prevState => functionalSetState(prevState, ...params),
         () => this.saveContextToLocalStorage()
@@ -59,6 +63,7 @@ export function initContext(localStorageName, actions, ...data) {
      * Surround with try-catch because user privacy settings might not allow local storage.
      */
     getContextFromLocalStorage = () => {
+      console.log('[CONTEXT] get context from ls');
       try {
         return JSON.parse(localStorage.getItem(localStorageName));
       } catch (err) {
@@ -68,6 +73,7 @@ export function initContext(localStorageName, actions, ...data) {
     };
     
     saveContextToLocalStorage = () => {
+      console.log('[CONTEXT] save context to ls');
       try {
         localStorage.setItem(localStorageName, JSON.stringify(this.state));
         this.contextFromLocalStorage = this.getContextFromLocalStorage();

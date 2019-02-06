@@ -7,7 +7,7 @@ const PokemonTypes = ({ main, secondary }) => {
     <div>
       {
         capitalize(main.type.name)}
-        {secondary !== undefined && `/ ${capitalize(secondary.type.name)}`
+        {secondary !== undefined && ` / ${capitalize(secondary.type.name)}`
       }
     </div>
   );

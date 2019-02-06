@@ -13,6 +13,7 @@ export function setSelectedPokemonData(currentState, newData) {
 }
 
 export function resetSelectedPokemonData(currentState) {
+  console.log('here');
   let state = deepCopy(currentState);
   state.pokemonData.selectedPokemon = {};
   return state;
