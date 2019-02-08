@@ -8,7 +8,7 @@ import PokemonDrawer from './components/PokemonDrawer';
 import { renderRoutes } from './utils/routesMapping';
 
 /* Resources */
-import { routesMapping } from './resources/routes';
+import { routesMapping } from './resources/navigation/routes';
 
 class App extends Component {
   constructor() {
@@ -27,7 +27,9 @@ class App extends Component {
       <div className="App">
         <PokemonAppBar toggleDrawer={this.toggleDrawer} />
         <PokemonDrawer drawerOpen={this.state.drawerOpen} toggleDrawer={this.toggleDrawer} />
+        <div style={{paddingTop: 56}}>
         {renderRoutes(routesMapping)}
+        </div>
       </div>
     );
   }

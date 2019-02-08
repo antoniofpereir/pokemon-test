@@ -6,10 +6,16 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import history from '../../resources/navigation/history';
+
+import { routes } from '../../resources/navigation/routes';
+
 import { getPokemonData } from '../../requests/PokemonListRequests';
 
 import { capitalize } from '../../utils/capitalize';
-import LoadingPlaceholder from 'loading-placeholder';
+
+/* Context */
+import { AppContext } from '../../contextLibrary';
 
 const styles = {
   avatar: {
@@ -21,20 +27,27 @@ const styles = {
   }
 }
 class PokemonListItem extends React.Component {
+  static contextType = AppContext;
+
   constructor() {
     super();
-
     this.state = {
       pokemonData: {},
+      hasData: false,
     }
   }
+
+  selectPokemonItem = () => {
+    this.context.execute('SET_SELECTED_POKEMON_DATA', this.state.pokemonData);
+    history.push(routes.pokemonData);
+  };
 
   renderPokemonList = () => {
     const { name } = this.props.item;
     const { pokemonData } = this.state;
 
     return (
-      <ListItem style={styles.listItem}>
+      <ListItem button style={styles.listItem} onClick={this.selectPokemonItem} >
         <ListItemAvatar>
           <Avatar alt={name} src={pokemonData.sprites.front_default} style={styles.avatar} />
         </ListItemAvatar>
@@ -47,15 +60,14 @@ class PokemonListItem extends React.Component {
   }
 
   componentDidMount() {
-    getPokemonData(this.props.item.url).then(pokemonData => this.setState({ pokemonData }));
+    getPokemonData(this.props.item.url).then(pokemonData => this.setState({ pokemonData, hasData: true }));
   }
 
   render() {
-    return (
-      <LoadingPlaceholder mustHave={Object.keys(this.state.pokemonData)} placeholder={<CircularProgress />} >
-        {this.renderPokemonList}
-      </LoadingPlaceholder>
-    );
+    if (this.state.hasData === false) {
+      return <CircularProgress />
+    }
+    return this.renderPokemonList();
   }
 }
 

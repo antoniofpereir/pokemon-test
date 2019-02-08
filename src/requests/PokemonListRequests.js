@@ -5,6 +5,11 @@ export async function getPokemonList() {
   return result.json();
 }
 
+export async function getNextPokemonList(url) {
+  const result =  await fetch(url)
+  return result.json();
+}
+
 export async function getPokemonData(url) {
   const result = await fetch(url)
   return result.json();

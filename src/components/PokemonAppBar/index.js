@@ -12,6 +12,14 @@ import InputBase from '@material-ui/core/InputBase';
 /* Material UI Icons */
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+
+/* Context */
+import { AppContext } from '../../contextLibrary';
+
+import history from '../../resources/navigation/history';
+
+import { capitalize } from '../../utils/capitalize';
 
 const styles = (theme) => ({
   searchIcon: {
@@ -61,31 +69,60 @@ const styles = (theme) => ({
   },
 })
 
+
 class PokemonAppBar extends React.Component {
-  render() {
+  static contextType = AppContext;
+
+  goBack = () => history.goBack();
+
+  renderIconButton = () => {
     const { classes, toggleDrawer } = this.props;
 
+    let iconButton = {};
+
+    if (Object.keys(this.context.pokemonData.selectedPokemon).length > 0 && history.location.pathname === '/pokemon') {
+      iconButton = (
+        <IconButton onClick={this.goBack} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+          <KeyboardArrowLeft />
+        </IconButton>
+      );
+    } else {
+      iconButton = (
+        <IconButton onClick={toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+          <MenuIcon />
+        </IconButton>
+      );
+    }
+    return iconButton;
+  }
+
+  render() {
+    const { classes } = this.props;
+
     return (
-      <AppBar position="static" >
+      <AppBar position="fixed" >
         <Toolbar>
-          <IconButton onClick={toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
+          {this.renderIconButton()}
           <Typography className={classes.title} variant="h6" color="inherit" noWrap>
             Pokémon
-            </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-          </div>
+          </Typography>
+          {
+            (Object.keys(this.context.pokemonData.selectedPokemon).length > 0 && history.location.pathname === '/pokemon') ?
+              capitalize(this.context.pokemonData.selectedPokemon.name)
+              :
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
+              </div>
+          }
         </Toolbar>
       </AppBar>
     );

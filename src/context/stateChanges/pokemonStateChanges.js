@@ -8,7 +8,13 @@ export function setPokemonList(currentState, pokemonListResponse) {
 
 export function setSelectedPokemonData(currentState, newData) {
   let state = deepCopy(currentState);
-  state.loginInformation.authenticationDetails = newData;
-  state.loginInformation.isLogged = true;
+  state.pokemonData.selectedPokemon = newData;
+  return state;
+}
+
+export function resetSelectedPokemonData(currentState) {
+  console.log('here');
+  let state = deepCopy(currentState);
+  state.pokemonData.selectedPokemon = {};
   return state;
 }
