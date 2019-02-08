@@ -1,12 +1,17 @@
 import * as remoteResources from './urls';
 
 export async function getPokemonList() {
-  const result =  await fetch(remoteResources.pokemonApiList)
+  const result = await fetch(remoteResources.pokemonApiList)
+  return result.json();
+}
+
+export async function getPokemonSingle(pokemonName) {
+  const result = await fetch(remoteResources.pokemonApiList + pokemonName)
   return result.json();
 }
 
 export async function getNextPokemonList(url) {
-  const result =  await fetch(url)
+  const result = await fetch(url)
   return result.json();
 }
 

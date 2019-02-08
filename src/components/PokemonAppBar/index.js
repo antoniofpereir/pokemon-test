@@ -1,4 +1,5 @@
 import React from 'react';
+import { debounce } from "throttle-debounce";
 
 /* Material UI Core */
 import { withStyles } from '@material-ui/core/styles';
@@ -20,6 +21,8 @@ import { AppContext } from '../../contextLibrary';
 import history from '../../resources/navigation/history';
 
 import { capitalize } from '../../utils/capitalize';
+
+import { getPokemonSingle } from '../../requests/PokemonListRequests';
 
 const styles = (theme) => ({
   searchIcon: {
@@ -69,11 +72,27 @@ const styles = (theme) => ({
   },
 })
 
-
 class PokemonAppBar extends React.Component {
   static contextType = AppContext;
 
+  constructor() {
+    super();
+    this.state = {
+      pokemonSearch: '',
+    }
+
+    this.debounceSearch = debounce(1000, this.searchForSinglePokemon);
+  }
+
   goBack = () => history.goBack();
+
+  searchOnChange = (event) => this.setState({ pokemonSearch: event.target.value });
+
+  searchForSinglePokemon = (event) => {
+    getPokemonSingle(event.target.value).then(responseJson => {
+      console.log(responseJson);
+    }).catch(error => console.log(error))
+  }
 
   renderIconButton = () => {
     const { classes, toggleDrawer } = this.props;
@@ -112,7 +131,7 @@ class PokemonAppBar extends React.Component {
               :
               <div className={classes.search}>
                 <div className={classes.searchIcon}>
-                  <SearchIcon />
+                  <SearchIcon/>
                 </div>
                 <InputBase
                   placeholder="Search…"
@@ -120,6 +139,7 @@ class PokemonAppBar extends React.Component {
                     root: classes.inputRoot,
                     input: classes.inputInput,
                   }}
+                  onChange={this.debounceSearch}
                 />
               </div>
           }
