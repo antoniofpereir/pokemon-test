@@ -1,14 +1,21 @@
 import ACTIONS from './constants';
 
 import {
-  startLoading,
-  stopLoading
-} from './loadingActions';
-
-import {
   getPokemonList,
   getNextPokemonList,
 } from '../../requests/PokemonListRequests';
+
+function startLoadingPokemonData() {
+  return {
+    type: ACTIONS.POKEMON.START_LOADING,
+  };
+}
+
+function stopLoadingPokemonData() {
+  return {
+    type: ACTIONS.POKEMON.STOP_LOADING,
+  };
+}
 
 function fetchPokemonDataSuccess(data) {
   return {
@@ -19,12 +26,13 @@ function fetchPokemonDataSuccess(data) {
 
 export function fetchPokemonData() {
   return dispatch => {
-    dispatch(startLoading());
+    dispatch(startLoadingPokemonData());
     getPokemonList()
       // .then(response => response.json())
       .then(responseJson => {
         dispatch(fetchPokemonDataSuccess(responseJson));
-        dispatch(stopLoading());
+        dispatch(stopLoadingPokemonData());
       });
   }
 }
+

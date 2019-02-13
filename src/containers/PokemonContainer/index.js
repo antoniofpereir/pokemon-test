@@ -55,7 +55,7 @@ class PokemonContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPokemonData();
+    // this.props.fetchPokemonData();
     getPokemonList().then(pokemonListResponse => {
       this.context.execute('SET_POKEMON_LIST', pokemonListResponse);
       this.setState({ hasData: true });
@@ -78,14 +78,16 @@ class PokemonContainer extends React.Component {
   }
 
   render() {
-    if (this.state.hasData === false) {
+    if (!this.state.hasData) {
+    // if (this.props.pokemonData.loading || !this.props.pokemonData.hasData) {
       return <CircularProgress />
     }
-
+    console.log('Container render');
     return (
       <div style={style.container}>
         <List style={style.list} >
-          {this.context.pokemonData.pokemonListResponse.previous !== null &&
+          {(this.context.pokemonData.pokemonListResponse.previous !== null
+            && this.context.pokemonData.pokemonListResponse.previous !== undefined) &&
             <ListItem button onClick={this.loadList('previous')} style={style.listItem} >
               <IconButton color="inherit" aria-label="Open drawer">
                 <ArrowUpward />
