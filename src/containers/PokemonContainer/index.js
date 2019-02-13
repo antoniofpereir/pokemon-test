@@ -1,8 +1,5 @@
 import React from 'react';
 
-/* Redux */
-import { connect } from 'react-redux';
-
 /* Material UI */
 import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
@@ -24,9 +21,6 @@ import {
 
 /* Context */
 import { AppContext } from '../../contextLibrary';
-
-/* Redux Actions */
-import { fetchPokemonData } from '../../redux/actions/pokemonDataActions';
 
 const style = {
   container: {
@@ -55,7 +49,6 @@ class PokemonContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPokemonData();
     getPokemonList().then(pokemonListResponse => {
       this.context.execute('SET_POKEMON_LIST', pokemonListResponse);
       this.setState({ hasData: true });
@@ -103,14 +96,4 @@ class PokemonContainer extends React.Component {
   };
 }
 
-const mapStateToProps = state => ({
-  pokemonData: state.pokemonData,
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchPokemonData: () => dispatch(fetchPokemonData()),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PokemonContainer);
+export default PokemonContainer;

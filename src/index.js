@@ -5,24 +5,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Router } from 'react-router-dom';
 
-/* Redux */
-import { Provider } from 'react-redux';
-import configureStore from './redux/configureStore';
-
 /* Context */
 import { ContextProvider } from './context';
 
 import history from './resources/navigation/history';
 
-const store = configureStore();
-
 ReactDOM.render(
   <ContextProvider>
-    <Provider store={store}>
-      <Router history={history}>
-        <App />
-      </Router>
-    </Provider>
+    <Router history={history}>
+      <App />
+    </Router>
   </ContextProvider>,
   document.getElementById('root'));
 
