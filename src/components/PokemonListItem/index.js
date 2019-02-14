@@ -12,7 +12,7 @@ import { routes } from '../../resources/navigation/routes';
 
 import { getPokemonData } from '../../requests/PokemonListRequests';
 
-import { capitalize } from '../../utils/capitalize';
+import { capitalize } from '../../utils';
 
 /* Context */
 import { Context } from '../../contextLibrary';

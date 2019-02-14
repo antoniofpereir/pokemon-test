@@ -20,7 +20,7 @@ import { Context } from '../../contextLibrary';
 
 import history from '../../resources/navigation/history';
 
-import { capitalize } from '../../utils/capitalize';
+import { capitalize } from '../../utils';
 
 import { getPokemonSingle } from '../../requests/PokemonListRequests';
 

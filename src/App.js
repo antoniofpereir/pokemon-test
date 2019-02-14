@@ -5,7 +5,7 @@ import PokemonAppBar from './components/PokemonAppBar';
 import PokemonDrawer from './components/PokemonDrawer';
 
 /* Utils */
-import { renderRoutes } from './utils/routesMapping';
+import { renderRoutes } from './utils';
 
 /* Resources */
 import { routesMapping } from './resources/navigation/routes';

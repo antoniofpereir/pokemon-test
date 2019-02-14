@@ -3,7 +3,7 @@ import PokemonHome from '../../containers/PokemonHome';
 import PokemonContainer from '../../containers/PokemonContainer';
 import PokemonData from '../../containers/PokemonData';
 
-import { createRoute } from '../../utils/routesMapping';
+import { createRoute } from '../../utils';
 
 export const routes = {
   pokemonHome: '/',
