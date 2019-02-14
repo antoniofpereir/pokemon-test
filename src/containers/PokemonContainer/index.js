@@ -20,7 +20,7 @@ import {
 } from '../../requests/PokemonListRequests';
 
 /* Context */
-import { AppContext } from '../../contextLibrary';
+import { Context } from '../../contextLibrary';
 
 const style = {
   container: {
@@ -37,17 +37,17 @@ const style = {
 }
 
 class PokemonContainer extends React.Component {
-  static contextType = AppContext;
-
+  static contextType = Context;
+  
   constructor() {
     super();
     this.state = {
       hasData: false,
     }
-
+    
     this.loadList = this.loadList.bind(this);
   }
-
+  
   componentDidMount() {
     getPokemonList().then(pokemonListResponse => {
       this.context.execute('SET_POKEMON_LIST', pokemonListResponse);

@@ -16,7 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
 /* Context */
-import { AppContext } from '../../contextLibrary';
+import { Context } from '../../contextLibrary';
 
 import history from '../../resources/navigation/history';
 
@@ -73,7 +73,7 @@ const styles = (theme) => ({
 })
 
 class PokemonAppBar extends React.Component {
-  static contextType = AppContext;
+  static contextType = Context;
 
   constructor() {
     super();

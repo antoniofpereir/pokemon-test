@@ -12,6 +12,7 @@ const pokemonData = {
 
 const randomStuffThatIDoNotNeedYet = {
   notNeeded: 'indeed not needed',
+  value: 0,
 }
 
 const localStorageName = 'pokemon_context';

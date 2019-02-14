@@ -15,7 +15,7 @@ import { getPokemonData } from '../../requests/PokemonListRequests';
 import { capitalize } from '../../utils/capitalize';
 
 /* Context */
-import { AppContext } from '../../contextLibrary';
+import { Context } from '../../contextLibrary';
 
 const styles = {
   avatar: {
@@ -27,7 +27,7 @@ const styles = {
   }
 }
 class PokemonListItem extends React.Component {
-  static contextType = AppContext;
+  static contextType = Context;
 
   constructor() {
     super();

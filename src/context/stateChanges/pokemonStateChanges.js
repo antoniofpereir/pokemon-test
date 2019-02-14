@@ -1,20 +1,17 @@
-import deepCopy from '../../utils/deepCopy';
-
 export function setPokemonList(currentState, pokemonListResponse) {
-  let pokemonData = deepCopy(currentState.pokemonData);
+  let pokemonData = currentState.pokemonData;
   pokemonData.pokemonListResponse = pokemonListResponse;
   return { pokemonData };
 }
 
 export function setSelectedPokemonData(currentState, newData) {
-  let state = deepCopy(currentState);
-  state.pokemonData.selectedPokemon = newData;
-  return state;
+  let pokemonData = currentState.pokemonData;
+  pokemonData.selectedPokemon = newData;
+  return { pokemonData };
 }
 
 export function resetSelectedPokemonData(currentState) {
-  console.log('here');
-  let state = deepCopy(currentState);
-  state.pokemonData.selectedPokemon = {};
-  return state;
+  let pokemonData = currentState.pokemonData;
+  pokemonData.selectedPokemon = {};
+  return { pokemonData };
 }

@@ -1,21 +1,23 @@
 import React from 'react';
+import deepCopy from './deepCopy';
 
 /**
  * Context object containing the Provider and Consumer objects.
  * The export is necessary in order to use contextType to inject context (React@16.6.0).
  */
-export const AppContext = React.createContext();
+export const Context = React.createContext();
 
 /**
  * Init app context provider to wrap the application.
  * @param {*} actions object containing the mapping between action tag and functionalSetState.
- * @param  {...any} data input to the action (optional).
+ * @param  {...any} data objects to create the context state (optional).
  * Returns a wrapper component that will provide the context to all the children.
  */
 export function initContext(localStorageName, actions, ...data) {
   return class GenericContext extends React.Component {
     constructor() {
       super();
+      
       const defaultContext = Object.assign(...data);
       this.contextFromLocalStorage = this.getContextFromLocalStorage();
 
@@ -49,7 +51,7 @@ export function initContext(localStorageName, actions, ...data) {
      */
     setStateAndUpdateLocalStorage = (functionalSetState, params) => {
       this.setState(
-        prevState => functionalSetState(prevState, ...params),
+        prevState => functionalSetState(deepCopy(prevState), ...params),
         () => this.saveContextToLocalStorage()
       );
     };
@@ -67,6 +69,10 @@ export function initContext(localStorageName, actions, ...data) {
       }
     };
     
+    /**
+     * Saves context state to localStorage.
+     * Surround with try-catch because user privacy settings might not allow local storage.
+     */
     saveContextToLocalStorage = () => {
       try {
         localStorage.setItem(localStorageName, JSON.stringify(this.state));
@@ -77,13 +83,13 @@ export function initContext(localStorageName, actions, ...data) {
     };
 
     /**
-     * Wraps child components with context provider.
+     * Wraps children with context provider.
      */
     render() {
       return (
-        <AppContext.Provider value={{ ...this.state, execute: this.execute }}>
+        <Context.Provider value={{ ...this.state, execute: this.execute }}>
           {this.props.children}
-        </AppContext.Provider>
+        </Context.Provider>
       );
     }
   };

@@ -4,7 +4,7 @@ import PokemonSprites from '../../components/PokemonSprites';
 import PokemonTypes from '../../components/PokemonTypes';
 
 /* Context */
-import { AppContext } from '../../contextLibrary';
+import { Context } from '../../contextLibrary';
 
 const style = {
   container: {
@@ -15,7 +15,7 @@ const style = {
 }
 
 class PokemonData extends React.Component {
-  static contextType = AppContext;
+  static contextType = Context;
 
   collectTypes = () => {
     const { types } = this.context.pokemonData.selectedPokemon;

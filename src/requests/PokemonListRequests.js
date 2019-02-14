@@ -16,10 +16,13 @@ export async function getNextPokemonList(url) {
 }
 
 export async function getPokemonData(url) {
-  const result = await fetch(url)
+  const result = await fetch(url);
   return result.json();
 }
 
+export function ola(originThis) {
+  console.log('context in ola: ', originThis);
+}
 // export async function getPokemonCharacteristic(id) {
 //   return await fetch(remoteResources.pokemonCharacteristics + id)
 //     .then(result => console.log(result) || result.json());
