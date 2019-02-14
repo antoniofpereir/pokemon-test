@@ -15,9 +15,9 @@ import PokemonListItem from '../../components/PokemonListItem';
 
 /* Requests */
 import {
-  getPokemonList,
-  getNextPokemonList,
-} from '../../requests/PokemonListRequests';
+  requestPokemonList,
+  requestNextPokemonList,
+} from '../../context/requestActions/pokemonRequestActions';
 
 /* Context */
 import { Context } from '../../contextLibrary';
@@ -49,10 +49,7 @@ class PokemonContainer extends React.Component {
   }
   
   componentDidMount() {
-    getPokemonList().then(pokemonListResponse => {
-      this.context.execute('SET_POKEMON_LIST', pokemonListResponse);
-      this.setState({ hasData: true });
-    });
+    this.context.executeRequest(requestPokemonList);
   }
 
   renderPokemonList = () => {
@@ -62,16 +59,12 @@ class PokemonContainer extends React.Component {
 
   loadList = (orientation) => () => {
     const nextUrl = this.context.pokemonData.pokemonListResponse[orientation];
-    this.setState({ hasData: false });
 
-    getNextPokemonList(nextUrl).then(pokemonListResponse => {
-      this.context.execute('SET_POKEMON_LIST', pokemonListResponse);
-      this.setState({ hasData: true });
-    });
+    this.context.executeRequest(requestNextPokemonList, nextUrl);
   }
 
   render() {
-    if (this.state.hasData === false) {
+    if (Object.keys(this.context.pokemonData.pokemonListResponse).length === 0) {
       return <CircularProgress />
     }
 

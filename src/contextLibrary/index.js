@@ -1,11 +1,13 @@
 import React from 'react';
 import deepCopy from './deepCopy';
+import injectThis from './injectThis';
+import executeRequest from './executeRequest';
 
 /**
  * Context object containing the Provider and Consumer objects.
  * The export is necessary in order to use contextType to inject context (React@16.6.0).
  */
-export const Context = React.createContext();
+const Context = React.createContext();
 
 /**
  * Init app context provider to wrap the application.
@@ -13,11 +15,11 @@ export const Context = React.createContext();
  * @param  {...any} data objects to create the context state (optional).
  * Returns a wrapper component that will provide the context to all the children.
  */
-export function initContext(localStorageName, actions, ...data) {
+function initContext(localStorageName, actions, ...data) {
   return class GenericContext extends React.Component {
     constructor() {
       super();
-      
+
       const defaultContext = Object.assign(...data);
       this.contextFromLocalStorage = this.getContextFromLocalStorage();
 
@@ -25,7 +27,7 @@ export function initContext(localStorageName, actions, ...data) {
        * Init context with defaultContext if contextFromLocalStorage is empty.
        */
       this.state = this.contextFromLocalStorage || defaultContext;
-      
+
       /**
        * Execute function decides functionalSetState based on actionType.
        */
@@ -33,6 +35,8 @@ export function initContext(localStorageName, actions, ...data) {
         const functionalSetState = actions[actionType];
         this.setStateAndUpdateLocalStorage(functionalSetState, params);
       };
+
+      executeRequest.bind(this);
     }
 
     /**
@@ -68,7 +72,7 @@ export function initContext(localStorageName, actions, ...data) {
         return null;
       }
     };
-    
+
     /**
      * Saves context state to localStorage.
      * Surround with try-catch because user privacy settings might not allow local storage.
@@ -84,13 +88,25 @@ export function initContext(localStorageName, actions, ...data) {
 
     /**
      * Wraps children with context provider.
+     * Passes state, execute function, executeRequest and every prop passed to the wrapper.
      */
     render() {
       return (
-        <Context.Provider value={{ ...this.state, execute: this.execute, ...this.props }}>
+        <Context.Provider value={{
+          ...this.state,
+          execute: this.execute,
+          executeRequest,
+          ...injectThis(this, this.props)
+        }}
+        >
           {this.props.children}
         </Context.Provider>
       );
     }
   };
+}
+
+export {
+  Context,
+  initContext,
 }
