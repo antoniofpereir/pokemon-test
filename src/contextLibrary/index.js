@@ -87,7 +87,7 @@ export function initContext(localStorageName, actions, ...data) {
      */
     render() {
       return (
-        <Context.Provider value={{ ...this.state, execute: this.execute }}>
+        <Context.Provider value={{ ...this.state, execute: this.execute, ...this.props }}>
           {this.props.children}
         </Context.Provider>
       );
