@@ -22,7 +22,7 @@ import history from '../../resources/navigation/history';
 
 import { capitalize } from '../../utils';
 
-import { getPokemonSingle } from '../../requests/PokemonListRequests';
+import { requestSinglePokemon } from '../../context/requestActions/pokemonRequestActions';
 
 const styles = (theme) => ({
   searchIcon: {
@@ -88,10 +88,14 @@ class PokemonAppBar extends React.Component {
 
   searchOnChange = (event) => this.setState({ pokemonSearch: event.target.value });
 
-  searchForSinglePokemon = (event) => {
-    getPokemonSingle(event.target.value).then(responseJson => {
-      console.log(responseJson);
-    }).catch(error => console.log(error))
+  // debounceSearch = (event) => {
+  //   console.log(event);
+  //   debounce(1000, this.searchForSinglePokemon, event);
+  // }
+
+  searchForSinglePokemon = (value) => {
+    console.log('event.target.value', value);
+    this.context.executeRequest(requestSinglePokemon, value);
   }
 
   renderIconButton = () => {
@@ -131,7 +135,7 @@ class PokemonAppBar extends React.Component {
               :
               <div className={classes.search}>
                 <div className={classes.searchIcon}>
-                  <SearchIcon/>
+                  <SearchIcon />
                 </div>
                 <InputBase
                   placeholder="Search…"
@@ -139,7 +143,7 @@ class PokemonAppBar extends React.Component {
                     root: classes.inputRoot,
                     input: classes.inputInput,
                   }}
-                  onChange={this.debounceSearch}
+                  onChange={event => this.debounceSearch(event.target.value)}
                 />
               </div>
           }
