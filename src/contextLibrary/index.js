@@ -68,7 +68,7 @@ function initContext(localStorageName, actions, ...data) {
       try {
         return JSON.parse(localStorage.getItem(localStorageName));
       } catch (err) {
-        console.log('Error reading from local storage');
+        console.error('Error reading from local storage');
         return null;
       }
     };
@@ -82,7 +82,7 @@ function initContext(localStorageName, actions, ...data) {
         localStorage.setItem(localStorageName, JSON.stringify(this.state));
         this.contextFromLocalStorage = this.getContextFromLocalStorage();
       } catch (err) {
-        console.log('Error saving to local storage');
+        console.error('Error saving to local storage');
       }
     };
 
