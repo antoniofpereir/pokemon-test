@@ -59,10 +59,54 @@ export const ContextProvider = initContext(
 
 ## Wrap application with provider
 
-stateless context
+```js
+import { ContextProvider } from './context';
+
+// ContextProvider can receive props and will spread them through context
+// but this "stateless context" will not be part of the main component's state
+// and therefore cannot be dynamically changed.
+ReactDOM.render(
+  <ContextProvider randomStatelessContext={randomData} >
+    <App />
+  </ContextProvider>,
+  document.getElementById('root'));
+```
 
 ## Access context
+Starting from React v16.6.0, context can be accessed by passing the context object to a static contextType.
+```js
+import { Context } from 'contextLibrary';
 
+class RandomComponentThatNeedsContext extends React.Component {
+  static contextType = Context;
+  ...
+  
+  render() {
+      <div>
+        {this.context.randomStuff.randomString}
+      </div>
+  }
+}
+```
 ## Execute actions
 
+After injecting the context in a component, you have access to `this.context.execute()`, which receives an action string (assigned to a functional set state) and any parameters passed, that can be used in the functional set state called by the action.
+```js
+this.context.execute('SET_RANDOM_STATE', randomObjectUsedInFunctionalSetState);
+```
 ## Execute requests
+A component injected with this context will also have access to `this.context.executeRequest()`, which takes a function as first argument and any parameters next. The function passed to `executeRequest()` will have access to `this.execute()`, allowing an asynchronous request to execute an action to change the context state with the api response.
+```js
+randomRequest(randomParam) {
+    fetch(url, {
+        ...
+        body: JSON.stringify(randomParam)
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+        this.execute('SET_RANDOM_STATE', responseJson.randomResponse);
+    })
+}
+
+this.context.executeRequest(randomRequest, randomParam);
+```
