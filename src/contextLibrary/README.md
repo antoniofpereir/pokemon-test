@@ -40,21 +40,20 @@ import { initContext } from  '../contextLibrary';
 import { actions } from  './actionsDirectory';
 
 // Context data objects
-const  randomStuff  = {
-	// ...
-};  
+const contextData = {
+  randomStuff = {
+	  // ...
+  },
+  moreRandomStuff = {
+    // ...
+  }
+};
 
 // State will be saved to local storage after each update
 const  localStorageName  =  'random_context';
 
 // Generating Context Provider
-export const ContextProvider = initContext(
-								  localStorageName,
-								  actions,
-								  {
-								    randomStuff,
-								    // ...
-								  });
+export const ContextProvider = initContext(localStorageName, actions, contextData);
 ```
 
 ## Wrap application with provider
