@@ -14,9 +14,34 @@ const styles = {
 class PokemonHome extends React.Component {
   static contextType = Context;
 
-  increment = () => {
-    this.context.execute('RANDOM_INCREMENT');
+  constructor() {
+    super();
+    this.state = {
+      value: 0,
+    }
   }
+
+  // incrementInContext = () => {
+  //   this.context.execute('RANDOM_INCREMENT');
+  // }
+
+  increment = () => {
+    this.setState({
+      value: this.state.value + 1,
+    });
+  }
+
+  // incrementBy3 = () => {
+  //   this.setState((prevState) => {
+  //     return {value: prevState.value + 1}
+  //   });
+  //   this.setState((prevState) => {
+  //     return {value: prevState.value + 1}
+  //   });
+  //   this.setState((prevState) => {
+  //     return {value: prevState.value + 1}
+  //   });
+  // }
 
   render() {
     return (
